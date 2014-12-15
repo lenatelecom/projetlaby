@@ -40,6 +40,10 @@ public abstract class MBox
 	{
 		return true;
 	}
+	public String getSymbol()
+	{
+		return "E";
+	}
 	
 	
 	}
