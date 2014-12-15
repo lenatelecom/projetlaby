@@ -12,4 +12,9 @@ public class ABox extends MBox {
 	{
 		pw.print('A');
 	}
+	@Override
+	public final  String getSymbol()
+	{
+		return "A";
+	}
 }
