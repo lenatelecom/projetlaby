@@ -13,7 +13,7 @@ public class DBox extends MBox {
 	}
 	public final String getSymbol()
 	{
-		return "D";
+		return "D" ;
 	}
 }
 
