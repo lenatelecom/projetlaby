@@ -22,8 +22,9 @@ public class Maze
 
 	public static final int WIDTH = 10;
 	public static final int HEIGHT = 10;
-	
 	private final MBox[][] boxes ;
+	
+	
 	
 	public Maze()
 	{
@@ -160,6 +161,9 @@ public class Maze
 					try { pw.close() ; } catch (Exception e){};
 				}
 			}
+		
+		Maze maze = new Maze();
+		
 		@Override
 		public void calculateShortestPath() {
 			// TODO Auto-generated method stub
@@ -168,17 +172,18 @@ public class Maze
 		@Override
 		public MazeViewSource getMazeViewSource() {
 			// TODO Auto-generated method stub
-			return null;
+			return maze;
 		}
 		@Override
 		public MazeViewSource newMaze() {
 			// TODO Auto-generated method stub
-			return null;
+			return maze;
 		}
 		@Override
 		public MazeViewSource openMaze(String fileName) {
 			// TODO Auto-generated method stub
-			return null;
+			 maze.initFromTextFile(fileName);
+			return maze;
 		}
 		@Override
 		public void saveMazeAs(String fileName) {
@@ -198,7 +203,8 @@ public class Maze
 		@Override
 		public String getSymbolForBox(int line, int column) {
 			// TODO Auto-generated method stub
-			return null;
+			MBox box = boxes[line][column];
+			return box.getSymbol();
 		}
 		@Override
 		public int getWidth() {
