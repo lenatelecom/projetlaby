@@ -27,7 +27,7 @@ public class MazeController implements  MazeViewController {
 	@Override
 	public MazeViewSource newMaze() {
 		// TODO Auto-generated method stub
-		maze = new Maze(this.getHeight(),this.getWidth());
+		maze = new Maze(this.maze.getHeight(),this.maze.getWidth());
 		 return maze;
 			
 		
@@ -35,12 +35,16 @@ public class MazeController implements  MazeViewController {
 	@Override
 	public MazeViewSource openMaze(String fileName) {
 		// TODO Auto-generated method stub
-		 maze.initFromTextFile(fileName);
-		return maze;
+		Maze mazee = (Maze) maze;
+		 mazee.initFromTextFile(fileName);
+		 return mazee;
+		 
+		
 	}
 	@Override
 	public void saveMazeAs(String fileName) {
 		// TODO Auto-generated method stub
-		
+		Maze mazee = (Maze) maze;
+		mazee.saveToTextFile(fileName);
 	}
 }
