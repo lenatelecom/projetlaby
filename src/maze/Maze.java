@@ -19,21 +19,21 @@ public class Maze
 	implements GraphInterface, MazeViewSource, MazeViewController
 	
 {
-
-	public static final int WIDTH = 10;
-	public static final int HEIGHT = 10;
-	private final MBox[][] boxes ;
+	/** On rend les paramètres hauteur et largeur variables, pour en donner le choix à l'utilisateur */
+	public int WIDTH;
+	public int HEIGHT;
+	private MBox[][] maze ;
 	
-	
-	
-	public Maze()
+	public Maze(int WIDTH, int HEIGHT)
 	{
-		boxes = new MBox[HEIGHT][WIDTH];
+		this.WIDTH = WIDTH;
+		this.HEIGHT = HEIGHT;
+		this.maze = new MBox[HEIGHT][WIDTH];
 		
 	}
 	public final MBox getBox(int line, int column)
 	{
-		return boxes[line][column];
+		return maze[line][column];
 	}
 	
 	public final ArrayList<VertexInterface> getAllVertices()
@@ -41,7 +41,7 @@ public class Maze
 		ArrayList<VertexInterface> allVertices = new ArrayList<VertexInterface>();
 		
 		for(int line = 0; line<HEIGHT;line++){
-			MBox[] theLine = boxes[line];
+			MBox[] theLine = maze[line];
 			for (int column = 0;column<WIDTH;column++)
 				allVertices.add(theLine[column]);
 		}
@@ -57,22 +57,22 @@ public class Maze
 		int column = box.getColumn();
 		
 		if (line>0){
-			MBox neighbor = boxes[line-1][column];
+			MBox neighbor = maze[line-1][column];
 			if (neighbor.isAccessible())
 				successors.add(neighbor);
 		}
 		if (line < HEIGHT-1){
-			MBox neighbor = boxes[line-1][column];
+			MBox neighbor = maze[line-1][column];
 			if(neighbor.isAccessible())
 				successors.add(neighbor);
 		}
 		if (column>0){
-			MBox neighbor = boxes[line+1][column];
+			MBox neighbor = maze[line+1][column];
 			if (neighbor.isAccessible())
 				successors.add(neighbor);
 		}
 		if (column<WIDTH-1){
-			MBox neighbor = boxes[line][column+1];
+			MBox neighbor = maze[line][column+1];
 			if (neighbor.isAccessible())
 				successors.add(neighbor);
 		}
@@ -105,15 +105,15 @@ public class Maze
 					for (int colNo=0;colNo < WIDTH;colNo++){
 						switch (line.charAt(colNo)){
 						case 'D' :
-							boxes[lineNo][colNo] = new DBox(this,lineNo,colNo); break;
+							maze[lineNo][colNo] = new DBox(this,lineNo,colNo); break;
 						case 'A' :
-							boxes[lineNo][colNo] = new ABox(this,lineNo,colNo); break;
+							maze[lineNo][colNo] = new ABox(this,lineNo,colNo); break;
 						case 'W' :
-							boxes[lineNo][colNo] = new WBox(this,lineNo,colNo); break;
+							maze[lineNo][colNo] = new WBox(this,lineNo,colNo); break;
 						case 'E' : 
-							boxes[lineNo][colNo] = new EBox(this,lineNo,colNo); break;
+							maze[lineNo][colNo] = new EBox(this,lineNo,colNo); break;
 						default :
-							throw new MazeReadingException(fileName,lineNo,"unknown char'" + boxes[lineNo][colNo] + "'");
+							throw new MazeReadingException(fileName,lineNo,"unknown char'" + maze[lineNo][colNo] + "'");
 						}
 						}
 					
@@ -143,7 +143,7 @@ public class Maze
 				pw = new PrintWriter(fileName);
 				
 				for(int lineNo=0; lineNo < HEIGHT ; lineNo++){
-					MBox[] line = boxes[lineNo];
+					MBox[] line = maze[lineNo];
 					for(int colNo=0;colNo< WIDTH;colNo++)
 						line[colNo].writeCharTo(pw);
 					pw.println();
@@ -162,8 +162,7 @@ public class Maze
 				}
 			}
 		
-		Maze maze = new Maze();
-		
+	
 		@Override
 		public void calculateShortestPath() {
 			// TODO Auto-generated method stub
@@ -203,7 +202,7 @@ public class Maze
 		@Override
 		public String getSymbolForBox(int line, int column) {
 			// TODO Auto-generated method stub
-			MBox box = boxes[line][column];
+			MBox box = maze[line][column];
 			return box.getSymbol();
 		}
 		@Override

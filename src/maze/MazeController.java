@@ -1,18 +1,13 @@
 package maze;
-
-
 import fr.enst.inf103.ui.MazeViewSource;
 import fr.enst.inf103.ui.MazeViewController;
-
-
 public class MazeController implements  MazeViewController {
 
 	private MazeViewSource maze;
 	
-	public MazeController(int height, int width){
-		maze = new Maze(height,width);
+	public MazeController(int h, int w){
+		maze = new Maze(h, w);
 	}
-	
 	
 	@Override
 	public void calculateShortestPath() {
