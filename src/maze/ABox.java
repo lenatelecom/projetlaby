@@ -3,9 +3,9 @@ import java.io.PrintWriter;
 
 public class ABox extends MBox {
 	 
-	public ABox(Maze maze, int line, int column)
+	public ABox(int line, int column)
 	{
-		super(maze, line, column);
+		super("A", line, column);
 	}
 	
 	public final void writeCharTo(PrintWriter pw)
