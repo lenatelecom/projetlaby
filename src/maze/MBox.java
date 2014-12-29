@@ -7,16 +7,16 @@ public abstract class MBox
 	implements VertexInterface
 {
 
-	private final int line;
-	private final int column;
-	private final Maze maze;
+	private int line;
+	private int column;
+	private String type;
 	
 	public abstract void writeCharTo(PrintWriter pw) ;
 	
-	public MBox(Maze maze, int line, int column){
+	public MBox(String type, int line, int column){
 		this.line = line;
 		this.column = column;
-		this.maze = maze;
+		this.type = type;
 									  			}
 	public final String getLabel()
 	{
