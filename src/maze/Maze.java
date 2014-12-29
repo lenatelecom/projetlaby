@@ -29,7 +29,11 @@ public class Maze
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;
 		this.maze = new MBox[HEIGHT][WIDTH];
-		
+		for (int i=0;i<HEIGHT;i++){
+			for (int j=0;j<WIDTH;j++){
+				maze[i][j]=new EBox(i,j);
+			}
+		}
 	}
 	public final MBox getBox(int line, int column)
 	{
