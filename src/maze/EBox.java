@@ -4,9 +4,9 @@ import java.io.PrintWriter;
 
 public class EBox extends MBox {
 	
-	public EBox(Maze maze, int line, int column)
+	public EBox(int line, int column)
 	{
-		super(maze, line, column);
+		super("E", line, column);
 	}
 
 	public final void writeCharTo(PrintWriter pw)
