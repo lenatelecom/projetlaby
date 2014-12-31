@@ -16,7 +16,7 @@ import fr.enst.inf103.ui.MazeViewController;
 import fr.enst.inf103.ui.MazeViewSource;
 
 public class Maze
-	implements GraphInterface, MazeViewSource, MazeViewController
+	implements GraphInterface, MazeViewSource
 	
 {
 	/** On rend les paramètres hauteur et largeur variables, pour en donner le choix à l'utilisateur */
@@ -24,6 +24,7 @@ public class Maze
 	public int HEIGHT;
 	private MBox[][] maze ;
 	
+	/** Création d'une MBox de taille donnée où toutes les cases sont des E */
 	public Maze(int WIDTH, int HEIGHT)
 	{
 		this.WIDTH = WIDTH;
@@ -35,6 +36,7 @@ public class Maze
 			}
 		}
 	}
+	
 	public final MBox getBox(int line, int column)
 	{
 		return maze[line][column];
@@ -109,13 +111,13 @@ public class Maze
 					for (int colNo=0;colNo < WIDTH;colNo++){
 						switch (line.charAt(colNo)){
 						case 'D' :
-							maze[lineNo][colNo] = new DBox(this,lineNo,colNo); break;
+							maze[lineNo][colNo] = new DBox(lineNo,colNo); break;
 						case 'A' :
-							maze[lineNo][colNo] = new ABox(this,lineNo,colNo); break;
+							maze[lineNo][colNo] = new ABox(lineNo,colNo); break;
 						case 'W' :
-							maze[lineNo][colNo] = new WBox(this,lineNo,colNo); break;
+							maze[lineNo][colNo] = new WBox(lineNo,colNo); break;
 						case 'E' : 
-							maze[lineNo][colNo] = new EBox(this,lineNo,colNo); break;
+							maze[lineNo][colNo] = new EBox(lineNo,colNo); break;
 						default :
 							throw new MazeReadingException(fileName,lineNo,"unknown char'" + maze[lineNo][colNo] + "'");
 						}
@@ -166,33 +168,6 @@ public class Maze
 				}
 			}
 		
-	
-		@Override
-		public void calculateShortestPath() {
-			// TODO Auto-generated method stub
-			
-		}
-		@Override
-		public MazeViewSource getMazeViewSource() {
-			// TODO Auto-generated method stub
-			return maze;
-		}
-		@Override
-		public MazeViewSource newMaze() {
-			// TODO Auto-generated method stub
-			return maze;
-		}
-		@Override
-		public MazeViewSource openMaze(String fileName) {
-			// TODO Auto-generated method stub
-			 maze.initFromTextFile(fileName);
-			return maze;
-		}
-		@Override
-		public void saveMazeAs(String fileName) {
-			// TODO Auto-generated method stub
-			
-		}
 		@Override
 		public boolean drawMaze(Graphics arg0, MazeView arg1) {
 			// TODO Auto-generated method stub
