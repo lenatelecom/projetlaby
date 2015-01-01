@@ -195,11 +195,28 @@ public class Maze
 		}
 		@Override
 		public void setSymbolForBox(int arg0, int arg1, String arg2) {
-			// à remplir
-			
+			// La méthode nous permet de définir murs, arrivée et départ. 
+			//On initialise puis avec le click ou shiftclick on pose nos cases
+			//(la gestion du click et du shift est déjà dans la MazeView.class du coup)
+			MBox box = null;
+			if(arg2.equals("D")) {
+				box = new DBox(arg0,arg1);
+			}
+			if(arg2.equals("E")) {
+				box = new EBox(arg0,arg1);
+			}
+			if(arg2.equals("A")) {
+				box = new ABox(arg0,arg1);
+			}
+			if(arg2.equals("W")) {
+				box = new WBox(arg0,arg1);
+			}
+			maze[arg0][arg1]=box;
 		}
 		
 		}
+		
+		
 	
 	
 
