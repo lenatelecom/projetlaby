@@ -11,7 +11,7 @@ public class MazeController implements  MazeViewController {
 	
 	@Override
 	public void calculateShortestPath() {
-		// TODO Auto-generated method stub
+		// à remplir
 		
 	}
 	@Override

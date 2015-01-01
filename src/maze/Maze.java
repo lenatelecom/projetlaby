@@ -170,40 +170,35 @@ public class Maze
 		
 		@Override
 		public boolean drawMaze(Graphics arg0, MazeView arg1) {
-			// TODO Auto-generated method stub
 			return false;
 		}
 		@Override
 		public int getHeight() {
-			// TODO Auto-generated method stub
 			return HEIGHT;
 		}
 		@Override
 		public String getSymbolForBox(int line, int column) {
-			// TODO Auto-generated method stub
 			MBox box = maze[line][column];
 			return box.getSymbol();
 		}
 		@Override
 		public int getWidth() {
-			// TODO Auto-generated method stub
 			return WIDTH;
 		}
 		@Override
 		public boolean handleClick(MouseEvent arg0, MazeView arg1) {
-			// TODO Auto-generated method stub
 			return false;
 		}
 		@Override
 		public boolean handleKey(KeyEvent arg0, MazeView arg1) {
-			// TODO Auto-generated method stub
 			return false;
 		}
 		@Override
 		public void setSymbolForBox(int arg0, int arg1, String arg2) {
-			// TODO Auto-generated method stub
+			// à remplir
 			
 		}
+		
 		}
 	
 	
