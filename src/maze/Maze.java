@@ -15,9 +15,7 @@ import fr.enst.inf103.ui.MazeView;
 import fr.enst.inf103.ui.MazeViewController;
 import fr.enst.inf103.ui.MazeViewSource;
 
-public class Maze
-	implements GraphInterface, MazeViewSource
-	
+public class Maze implements GraphInterface, MazeViewSource
 {
 	/** On rend les paramètres hauteur et largeur variables, pour en donner le choix à l'utilisateur */
 	public int WIDTH;
@@ -33,7 +31,7 @@ public class Maze
 		for (int i=0;i<HEIGHT;i++){
 			for (int j=0;j<WIDTH;j++){
 				maze[i][j]=new EBox(i,j);
-			}
+			}   
 		}
 	}
 	
@@ -83,23 +81,30 @@ public class Maze
 				successors.add(neighbor);
 		}
 		return successors;
+	}
+	
+	/** Obtenir le poids entre deux sommets: 0 si c'est le même sommet, 1 s'ils sont liés, -1 sinon */
+	public final int getWeight(VertexInterface vertex1, VertexInterface vertex2)
+	{
+		if(vertex1==vertex2){ return 0; }
+		else { ArrayList<VertexInterface> successors = getSuccessors(vertex1); 
+		if (successors.contains(vertex2)){ return 1; }
+		else {return -1;}
 		}
+	}
 		
-		public final int getWeight(VertexInterface src, VertexInterface dst){
-			return 1;
-		}
-		
-		public final void initFromTextFile(String fileName)
-		{
-			FileReader fr = null;
-			BufferedReader br = null;
+	public final void initFromTextFile(String fileName)
+	{
+		FileReader fr = null;
+		BufferedReader br = null;
 			
-			try {
-				fr = new FileReader(fileName);
-				br = new BufferedReader(fr);
+		try {
+			fr = new FileReader(fileName);
+			br = new BufferedReader(fr);
 				
-				for (int lineNo=0; lineNo < HEIGHT ; lineNo++){
-					String line = br.readLine();
+			for (int lineNo=0; lineNo < HEIGHT ; lineNo++)
+			{
+				String line = br.readLine();
 					
 					if(line == null)
 						throw new MazeReadingException(fileName, lineNo, "not enough lines");
@@ -108,8 +113,10 @@ public class Maze
 					if(line.length()> WIDTH)
 						throw new MazeReadingException(fileName ,lineNo,"line too long");
 					
-					for (int colNo=0;colNo < WIDTH;colNo++){
-						switch (line.charAt(colNo)){
+					for (int colNo=0;colNo < WIDTH;colNo++)
+					{
+						switch (line.charAt(colNo))
+						{
 						case 'D' :
 							maze[lineNo][colNo] = new DBox(lineNo,colNo); break;
 						case 'A' :
@@ -121,8 +128,8 @@ public class Maze
 						default :
 							throw new MazeReadingException(fileName,lineNo,"unknown char'" + maze[lineNo][colNo] + "'");
 						}
-						}
-					
+					}
+				
 				}
 				
 			} catch (MazeReadingException e){
@@ -134,17 +141,20 @@ public class Maze
 			} catch (Exception e ){
 				System.err.println("Error:unknown error.");
 				e.printStackTrace(System.err);
-			} finally {
+			} finally 
+			{
 				if(fr !=null)
 					try{ fr.close();} catch (Exception e){};
 				if (br!= null)
 					try { br.close();} catch (Exception e)  {};
-					}
+			
+			}
 		}
 		
-		public final void saveToTextFile(String fileName)
-		{
-			PrintWriter pw = null ;
+		
+	public final void saveToTextFile(String fileName)
+	{
+		PrintWriter pw = null ;
 			try {
 				pw = new PrintWriter(fileName);
 				
@@ -166,7 +176,7 @@ public class Maze
 				if(pw!=null)
 					try { pw.close() ; } catch (Exception e){};
 				}
-			}
+	 }
 		
 		@Override
 		public boolean drawMaze(Graphics arg0, MazeView arg1) {
@@ -214,7 +224,7 @@ public class Maze
 			maze[arg0][arg1]=box;
 		}
 		
-		}
+}
 		
 		
 	
