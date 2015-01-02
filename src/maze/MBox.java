@@ -22,25 +22,23 @@ public abstract class MBox
 	public final String getLabel()
 	{
 		return "(" + line + "," + column + ")" ;
-		
 	}
 	
 	public final int getLine()
 	{
-		return line;
-		
+		return line;	
 	}
 	
 	public final int getColumn()
 	{
-		return column;
-		
+		return column;	
 	}
 
 	public boolean isAccessible()
 	{
 		return true;
 	}
+	/* c'est quoi ça? */
 	public String getSymbol()
 	{
 		return "E";

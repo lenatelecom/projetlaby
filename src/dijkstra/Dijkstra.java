@@ -3,7 +3,8 @@ package dijkstra;
 import java.util.ArrayList;
 
 
-public class Dijkstra {
+public class Dijkstra 
+{
 
 	public static PreviousInterface dijkstra(GraphInterface  g,
 											VertexInterface  r)
@@ -25,11 +26,13 @@ public class Dijkstra {
 		
 		VertexInterface pivot = r;
 		int piPivot = 0;
-		for(int i=1;i<n;i++){
+		for(int i=1;i<n;i++)
+		{
 			
 			ArrayList<VertexInterface> pivotSuccessors = g.getSuccessors(pivot);
 			for (VertexInterface y : pivotSuccessors)
-				if(! a.contains(y)){
+				if(! a.contains(y))
+				{
 					int newPi = piPivot + g.getWeight(pivot,y);
 					if(newPi<pi.getValue(y)){
 						pi.setValue(y,newPi);
@@ -40,9 +43,11 @@ public class Dijkstra {
 			VertexInterface newPivot = null;
 			int piNewPivot = Integer.MAX_VALUE;
 			for (VertexInterface v : allVertices)
-				if(! a.contains(v)){
+				if(! a.contains(v))
+				{
 					int piV = pi.getValue(v);
-					if(piV<piNewPivot){
+					if(piV<piNewPivot)
+					{
 						newPivot=v;
 						piNewPivot=piV;
 						
