@@ -25,7 +25,7 @@ public class MainTest {
 	 	 	 System.out.println("Mauvaise saisie. Le labyrinthe aura la taille par defaut.");
 	 	 }
 	 	 finally {
-	 	 	 MazeController mc = new MazeController(h,w);
+	 	 	 MazeController mc = new MazeController(h+2,w+2);
 	 	 	 MazeWindow mazeWindow = new MazeWindow("My awesome laby", mc);
 	 	 }
 	    

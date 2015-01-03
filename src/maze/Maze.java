@@ -21,7 +21,7 @@ public class Maze implements GraphInterface, MazeViewSource
 	public int WIDTH;
 	public int HEIGHT;
 	private MBox[][] maze ;
-	
+
 	/** Création d'une MBox de taille donnée où toutes les cases sont des E */
 	public Maze(int WIDTH, int HEIGHT)
 	{
@@ -33,33 +33,42 @@ public class Maze implements GraphInterface, MazeViewSource
 				maze[i][j]=new EBox(i,j);
 			}   
 		}
+		for (int j=0;j<HEIGHT;j++){
+			maze[j][0]=new WBox(j,0);
+			maze[j][WIDTH-1]=new WBox(j,WIDTH-1);
+		}
+		for (int j=0;j<WIDTH; j++){
+			maze[0][j]= new WBox(0,j);
+			maze[HEIGHT-1][j]=new WBox(HEIGHT-1,j);
+		}
 	}
+
 	
+
 	public final MBox getBox(int line, int column)
 	{
 		return maze[line][column];
 	}
-	
 	public final ArrayList<VertexInterface> getAllVertices()
 	{
 		ArrayList<VertexInterface> allVertices = new ArrayList<VertexInterface>();
-		
+
 		for(int line = 0; line<HEIGHT;line++){
 			MBox[] theLine = maze[line];
 			for (int column = 0;column<WIDTH;column++)
 				allVertices.add(theLine[column]);
 		}
 		return allVertices;
-		}
-	
+	}
+
 	public ArrayList<VertexInterface> getSuccessors(VertexInterface vertex)
 	{
 		ArrayList<VertexInterface> successors = new ArrayList<VertexInterface>();
-		
+
 		MBox box = (MBox)vertex; //cast
 		int line = box.getLine();
 		int column = box.getColumn();
-		
+
 		if (line>0){
 			MBox neighbor = maze[line-1][column];
 			if (neighbor.isAccessible())
@@ -82,7 +91,7 @@ public class Maze implements GraphInterface, MazeViewSource
 		}
 		return successors;
 	}
-	
+
 	/** Obtenir le poids entre deux sommets: 0 si c'est le même sommet, 1 s'ils sont liés, -1 sinon */
 	public final int getWeight(VertexInterface vertex1, VertexInterface vertex2)
 	{
@@ -91,142 +100,147 @@ public class Maze implements GraphInterface, MazeViewSource
 		if (successors.contains(vertex2)){ return 1; }
 		else {return -1;}
 		}
-	}
-		
+	}	
+	
 	public final void initFromTextFile(String fileName)
 	{
 		FileReader fr = null;
 		BufferedReader br = null;
-			
+
 		try {
 			fr = new FileReader(fileName);
 			br = new BufferedReader(fr);
-				
+
 			for (int lineNo=0; lineNo < HEIGHT ; lineNo++)
 			{
 				String line = br.readLine();
-					
-					if(line == null)
-						throw new MazeReadingException(fileName, lineNo, "not enough lines");
-					if ( line.length() < WIDTH)
-						throw new MazeReadingException(fileName, lineNo,"line too short");
-					if(line.length()> WIDTH)
-						throw new MazeReadingException(fileName ,lineNo,"line too long");
-					
-					for (int colNo=0;colNo < WIDTH;colNo++)
+
+				if(line == null)
+					throw new MazeReadingException(fileName, lineNo, "not enough lines");
+				if ( line.length() < WIDTH)
+					throw new MazeReadingException(fileName, lineNo,"line too short");
+				if(line.length()> WIDTH)
+					throw new MazeReadingException(fileName ,lineNo,"line too long");
+
+				for (int colNo=0;colNo < WIDTH;colNo++)
+				{
+					switch (line.charAt(colNo))
 					{
-						switch (line.charAt(colNo))
-						{
-						case 'D' :
-							maze[lineNo][colNo] = new DBox(lineNo,colNo); break;
-						case 'A' :
-							maze[lineNo][colNo] = new ABox(lineNo,colNo); break;
-						case 'W' :
-							maze[lineNo][colNo] = new WBox(lineNo,colNo); break;
-						case 'E' : 
-							maze[lineNo][colNo] = new EBox(lineNo,colNo); break;
-						default :
-							throw new MazeReadingException(fileName,lineNo,"unknown char'" + maze[lineNo][colNo] + "'");
-						}
+					case 'D' :
+						maze[lineNo][colNo] = new DBox(lineNo,colNo); break;
+					case 'A' :
+						maze[lineNo][colNo] = new ABox(lineNo,colNo); break;
+					case 'W' :
+						maze[lineNo][colNo] = new WBox(lineNo,colNo); break;
+					case 'E' : 
+						maze[lineNo][colNo] = new EBox(lineNo,colNo); break;
+					default :
+						throw new MazeReadingException(fileName,lineNo,"unknown char'" + maze[lineNo][colNo] + "'");
 					}
-				
 				}
-				
-			} catch (MazeReadingException e){
-				System.err.println(e.getMessage());
-			} catch (FileNotFoundException e ){
-				System.err.println("Error class Maze, initFromTextFile : file not found\""+fileName+"\"");
-			} catch (IOException e) {
-				System.err.println("Error class Maze, initFromTextFile: read error on file\""+fileName+"\"");
-			} catch (Exception e ){
-				System.err.println("Error:unknown error.");
-				e.printStackTrace(System.err);
-			} finally 
-			{
-				if(fr !=null)
-					try{ fr.close();} catch (Exception e){};
+
+			}
+
+		} catch (MazeReadingException e){
+			System.err.println(e.getMessage());
+		} catch (FileNotFoundException e ){
+			System.err.println("Error class Maze, initFromTextFile : file not found\""+fileName+"\"");
+		} catch (IOException e) {
+			System.err.println("Error class Maze, initFromTextFile: read error on file\""+fileName+"\"");
+		} catch (Exception e ){
+			System.err.println("Error:unknown error.");
+			e.printStackTrace(System.err);
+		} finally 
+		{
+			if(fr !=null)
+				try{ fr.close();} catch (Exception e){};
 				if (br!= null)
 					try { br.close();} catch (Exception e)  {};
-			
-			}
+
 		}
-		
-		
+	}
+
+
 	public final void saveToTextFile(String fileName)
 	{
 		PrintWriter pw = null ;
-			try {
-				pw = new PrintWriter(fileName);
+		try {
+			pw = new PrintWriter(fileName);
+
+			for(int lineNo=0; lineNo < HEIGHT ; lineNo++){
+				MBox[] line = maze[lineNo];
+				for(int colNo=0;colNo< WIDTH;colNo++)
+					line[colNo].writeCharTo(pw);
+				pw.println();
+			}
+
+		} catch (FileNotFoundException e){
+			System.err.println("Error class maze, saveToTextFile : file not found\""+fileName+"\"");
+		} catch (SecurityException e){
+			System.err.println("Error class maze, saveToTextFile: security exception\""+fileName+"\"");
+		} catch (Exception e){
+			System.err.println("Error:unknown error.");
+			e.printStackTrace(System.err);
+		} finally {
+			if(pw!=null)
+				try { pw.close() ; } catch (Exception e){};
+		}
+	}
+
+	@Override
+	public boolean drawMaze(Graphics arg0, MazeView arg1) {
+		return false;
+	}
+	@Override
+	public int getHeight() {
+		return HEIGHT;
+	}
+	@Override
+	public String getSymbolForBox(int line, int column) {
+		MBox box = maze[line][column];
+		return box.getSymbol();
+	}
+	@Override
+	public int getWidth() {
+		return WIDTH;
+	}
+	@Override
+	public boolean handleClick(MouseEvent arg0, MazeView arg1) {
+		return false;
+	}
+	@Override
+	public boolean handleKey(KeyEvent arg0, MazeView arg1) {
+		return false;
+	}
+	@Override
+	public void setSymbolForBox(int arg0, int arg1, String arg2) {
+		// La méthode nous permet de définir murs, arrivée et départ. 
+		//On initialise puis avec le click ou shiftclick on pose nos cases
+		//(la gestion du click et du shift est déjà dans la MazeView.class du coup)
+		if(arg0!=0 && arg0!=HEIGHT-1 && arg1!=0 && arg1!=WIDTH-1){
 				
-				for(int lineNo=0; lineNo < HEIGHT ; lineNo++){
-					MBox[] line = maze[lineNo];
-					for(int colNo=0;colNo< WIDTH;colNo++)
-						line[colNo].writeCharTo(pw);
-					pw.println();
-				}
-				
-			} catch (FileNotFoundException e){
-				System.err.println("Error class maze, saveToTextFile : file not found\""+fileName+"\"");
-			} catch (SecurityException e){
-				System.err.println("Error class maze, saveToTextFile: security exception\""+fileName+"\"");
-			} catch (Exception e){
-				System.err.println("Error:unknown error.");
-				e.printStackTrace(System.err);
-			} finally {
-				if(pw!=null)
-					try { pw.close() ; } catch (Exception e){};
-				}
-	 }
-		
-		@Override
-		public boolean drawMaze(Graphics arg0, MazeView arg1) {
-			return false;
+				MBox box = null;
+		if(arg2.equals("D")) {
+			box = new DBox(arg0,arg1);
 		}
-		@Override
-		public int getHeight() {
-			return HEIGHT;
+		if(arg2.equals("E")) {
+			box = new EBox(arg0,arg1);
 		}
-		@Override
-		public String getSymbolForBox(int line, int column) {
-			MBox box = maze[line][column];
-			return box.getSymbol();
+		if(arg2.equals("A")) {
+			box = new ABox(arg0,arg1);
 		}
-		@Override
-		public int getWidth() {
-			return WIDTH;
+		if(arg2.equals("W")) {
+			box = new WBox(arg0,arg1);
 		}
-		@Override
-		public boolean handleClick(MouseEvent arg0, MazeView arg1) {
-			return false;
-		}
-		@Override
-		public boolean handleKey(KeyEvent arg0, MazeView arg1) {
-			return false;
-		}
-		@Override
-		public void setSymbolForBox(int arg0, int arg1, String arg2) {
-			// La méthode nous permet de définir murs, arrivée et départ. 
-			//On initialise puis avec le click ou shiftclick on pose nos cases
-			//(la gestion du click et du shift est déjà dans la MazeView.class du coup)
-			MBox box = null;
-			if(arg2.equals("D")) {
-				box = new DBox(arg0,arg1);
-			}
-			if(arg2.equals("E")) {
-				box = new EBox(arg0,arg1);
-			}
-			if(arg2.equals("A")) {
-				box = new ABox(arg0,arg1);
-			}
-			if(arg2.equals("W")) {
-				box = new WBox(arg0,arg1);
-			}
-			maze[arg0][arg1]=box;
-		}
-		
-}
-		
-		
-	
-	
+		maze[arg0][arg1]=box;
+
+	}
+}}
+
+
+
+
+
+
+
 
