@@ -262,7 +262,7 @@ implements GraphInterface, MazeViewSource
 
 
 
-=======
+
 		@Override
 
 
@@ -273,13 +273,10 @@ implements GraphInterface, MazeViewSource
 				for(int line = 0; line<getHeight(); line++){
 					MBox[] theLine = maze[line];
 					for (int column = 0; column<getWidth(); column++){
-<<<<<<< b1eeb0d7a3c1633442560ff0be476e03e68d8fd1
+
 						Mbox box = theLine[column];
 					String name = box.getSymbol(line,column);
-=======
-						MBox box = theLine[column];
-					String name = box.getSymbol();
->>>>>>> c3aa446b127388f4680e2a9ab6fd612954d815e7
+
 					if (name.equals("D")) {
 							return maze[line][column];
 		
