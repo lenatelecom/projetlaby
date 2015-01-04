@@ -263,25 +263,46 @@ implements GraphInterface, MazeViewSource
 
 
 
-		@Override
+		
 
 
 		
 		public MBox getDeparture()
 		{
 			
-				for(int line = 0; line<getHeight(); line++){
+				for(int line = 0; line<getHeight(); line++)
+				{
 					MBox[] theLine = maze[line];
-					for (int column = 0; column<getWidth(); column++){
-
-						Mbox box = theLine[column];
-					String name = box.getSymbol(line,column);
+					for (int column = 0; column<getWidth(); column++)
+					{
+						
+						MBox box = theLine[column];
+					String name = box.getSymbol();
 
 					if (name.equals("D")) {
 							return maze[line][column];
 		
-					}}
-         }
+				
+					}
+         }}
+				return null;
+				}	
+				public MBox getArrival()
+				{
+					
+						for(int line = 0; line<getHeight(); line++){
+							MBox[] theLine = maze[line];
+							for (int column = 0; column<getWidth(); column++){
+							MBox box = theLine[column];
+							
+							String name = box.getSymbol();
+
+							if (name.equals("A")) 
+									return box;
+				
+							}
+		         }
+						return null;
 }}
 		
 		
