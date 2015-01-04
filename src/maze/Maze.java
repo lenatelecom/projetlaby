@@ -14,15 +14,21 @@ import dijkstra.VertexInterface;
 import fr.enst.inf103.ui.MazeView;
 import fr.enst.inf103.ui.MazeViewController;
 import fr.enst.inf103.ui.MazeViewSource;
+import fr.enst.inf103.ui.MazeWindow;
 
-public class Maze implements GraphInterface, MazeViewSource
+
+public class Maze 
+implements GraphInterface, MazeViewSource
+
 {
-	/** On rend les paramètres hauteur et largeur variables, pour en donner le choix à l'utilisateur */
+	/** On rend les parametres hauteur et largeur variables, pour en donner le choix a l'utilisateur */
 	public int WIDTH;
 	public int HEIGHT;
 	private MBox[][] maze ;
 
-	/** Création d'une MBox de taille donnée où toutes les cases sont des E */
+	// Creation d'une MBox de taille donnee ou toutes les cases sont des E 
+
+
 	public Maze(int WIDTH, int HEIGHT)
 	{
 		this.WIDTH = WIDTH;
@@ -41,6 +47,7 @@ public class Maze implements GraphInterface, MazeViewSource
 			maze[0][j]= new WBox(0,j);
 			maze[HEIGHT-1][j]=new WBox(HEIGHT-1,j);
 		}
+
 	}
 
 	
@@ -65,7 +72,11 @@ public class Maze implements GraphInterface, MazeViewSource
 	{
 		ArrayList<VertexInterface> successors = new ArrayList<VertexInterface>();
 
+
 		MBox box = (MBox)vertex; //cast
+
+		
+
 		int line = box.getLine();
 		int column = box.getColumn();
 
@@ -92,10 +103,13 @@ public class Maze implements GraphInterface, MazeViewSource
 		return successors;
 	}
 
-	/** Obtenir le poids entre deux sommets: 0 si c'est le même sommet, 1 s'ils sont liés, -1 sinon */
+	/** Obtenir le poids entre deux sommets: 0 si c'est le mï¿½me sommet, 1 s'ils sont liï¿½s, -1 sinon */
+
 	public final int getWeight(VertexInterface vertex1, VertexInterface vertex2)
 	{
-		if(vertex1==vertex2){ return 0; }
+		if(vertex1==vertex2) { 
+			return 0; 
+		}
 		else { ArrayList<VertexInterface> successors = getSuccessors(vertex1); 
 		if (successors.contains(vertex2)){ return 1; }
 		else {return -1;}
@@ -164,28 +178,32 @@ public class Maze implements GraphInterface, MazeViewSource
 	public final void saveToTextFile(String fileName)
 	{
 		PrintWriter pw = null ;
-		try {
-			pw = new PrintWriter(fileName);
 
-			for(int lineNo=0; lineNo < HEIGHT ; lineNo++){
-				MBox[] line = maze[lineNo];
-				for(int colNo=0;colNo< WIDTH;colNo++)
-					line[colNo].writeCharTo(pw);
-				pw.println();
-			}
+			try {
+				pw = new PrintWriter(fileName);
+				
+				for(int lineNo=0; lineNo < HEIGHT ; lineNo++){
+					MBox[] line = maze[lineNo];
+					for(int colNo=0;colNo< WIDTH;colNo++)
+						line[colNo].writeCharTo(pw);
+					pw.println();
+				}
+				
+			} catch (FileNotFoundException e){
+				System.err.println("Error class maze, saveToTextFile : file not found\""+fileName+"\"");
+			} catch (SecurityException e){
+				System.err.println("Error class maze, saveToTextFile: security exception\""+fileName+"\"");
+			} catch (Exception e){
+				System.err.println("Error:unknown error.");
+				e.printStackTrace(System.err);
+			} finally {
+				if(pw!=null)
+					try { pw.close() ; } catch (Exception e){
+						
+					}}
+				}
 
-		} catch (FileNotFoundException e){
-			System.err.println("Error class maze, saveToTextFile : file not found\""+fileName+"\"");
-		} catch (SecurityException e){
-			System.err.println("Error class maze, saveToTextFile: security exception\""+fileName+"\"");
-		} catch (Exception e){
-			System.err.println("Error:unknown error.");
-			e.printStackTrace(System.err);
-		} finally {
-			if(pw!=null)
-				try { pw.close() ; } catch (Exception e){};
-		}
-	}
+	
 
 	@Override
 	public boolean drawMaze(Graphics arg0, MazeView arg1) {
@@ -214,9 +232,9 @@ public class Maze implements GraphInterface, MazeViewSource
 	}
 	@Override
 	public void setSymbolForBox(int arg0, int arg1, String arg2) {
-		// La méthode nous permet de définir murs, arrivée et départ. 
+		// La mï¿½thode nous permet de dï¿½finir murs, arrivï¿½e et dï¿½part. 
 		//On initialise puis avec le click ou shiftclick on pose nos cases
-		//(la gestion du click et du shift est déjà dans la MazeView.class du coup)
+		//(la gestion du click et du shift est dï¿½jï¿½ dans la MazeView.class du coup)
 		if(arg0!=0 && arg0!=HEIGHT-1 && arg1!=0 && arg1!=WIDTH-1){
 				
 				MBox box = null;
@@ -229,13 +247,14 @@ public class Maze implements GraphInterface, MazeViewSource
 		if(arg2.equals("A")) {
 			box = new ABox(arg0,arg1);
 		}
+
 		if(arg2.equals("W")) {
 			box = new WBox(arg0,arg1);
 		}
 		maze[arg0][arg1]=box;
 
 	}
-}}
+}
 
 
 
@@ -243,4 +262,25 @@ public class Maze implements GraphInterface, MazeViewSource
 
 
 
+=======
+		@Override
+
+
+		
+		public MBox getDeparture()
+		{
+			
+				for(int line = 0; line<getHeight(); line++){
+					MBox[] theLine = maze[line];
+					for (int column = 0; column<getWidth(); column++){
+						Mbox box = theLine[column];
+					String name = box.getSymbol(line,column);
+					if (name.equals("D")) {
+							return maze[line][column];
+		
+					}}
+         }
+}
+		
+		
 

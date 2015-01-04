@@ -12,10 +12,10 @@ public class MazeController implements  MazeViewController {
 	}
 	
 	@Override
-	/* Créer une méthode dans maze qui fasse apparaître un nouveau type de case, chemin en jaune, on va l'utiliser ici.
+	/* Creer une methode dans maze qui fasse apparaire un nouveau type de case, chemin en jaune, on va l'utiliser ici.
 	Ici si la liste des cases chemin est nulle on 
-	va appliquer dijkstra d'un départ jusqu'à une arrivée, et on aura le chemin. Si la liste est pleine,
-	il y a déjà un chemin donc faut vider
+	va appliquer dijkstra d'un depart jusqu'a une arrivee, et on aura le chemin. Si la liste est pleine,
+	il y a deja un chemin donc faut vider
 	ces cases.  */
 	public void calculateShortestPath() {
 		
@@ -30,17 +30,16 @@ public class MazeController implements  MazeViewController {
 	public MazeViewSource getMazeViewSource() {
 		return maze;
 	}
+
 	@Override
 	public MazeViewSource newMaze() {
-		// construire un nouveau maze de taille donnée
+		// construire un nouveau maze de taille donnee
 		maze = new Maze(this.maze.getHeight(),this.maze.getWidth());
 		 return maze;
-			
-		
 	}
 	@Override
 	public MazeViewSource openMaze(String fileName) {
-		// ouvrir un maze à partir du fichier texte
+		// ouvrir un maze a partir du fichier texte
 		Maze mazee = (Maze) maze;
 		 mazee.initFromTextFile(fileName);
 		 return mazee;
