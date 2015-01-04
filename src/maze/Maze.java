@@ -251,22 +251,15 @@ implements GraphInterface, MazeViewSource
 		if(arg2.equals("W")) {
 			box = new WBox(arg0,arg1);
 		}
+		if(arg2.equals("P")) {
+			box = new PBox(arg0,arg1);
+		}
 		maze[arg0][arg1]=box;
 
 	}
 }
 
 
-
-
-
-
-
-
-		
-
-
-		
 		public MBox getDeparture()
 		{
 			
@@ -303,7 +296,18 @@ implements GraphInterface, MazeViewSource
 							}
 		         }
 						return null;
-}}
+}
+				 public ArrayList<MBox> casesjaunes() { //renvoie la liste des cases du chemin 	 
+				 	 ArrayList<MBox> liste = new ArrayList<MBox>();
+				 	 for (int i = 0;i<getHeight();i++) {
+				 	 	 for(int j = 0;j<getWidth();j++) {
+				 	 	 	 MBox box = maze[i][j];
+				 	 	 	 if (box.getSymbol().equals("*")) {liste.add(box);}
+				 	 	 }
+				 	 }
+				 	 return liste;
+				 }
+				}
 		
 		
 
