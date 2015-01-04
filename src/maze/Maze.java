@@ -50,7 +50,7 @@ implements GraphInterface, MazeViewSource
 
 	}
 
-	
+
 
 	public final MBox getBox(int line, int column)
 	{
@@ -75,7 +75,7 @@ implements GraphInterface, MazeViewSource
 
 		MBox box = (MBox)vertex; //cast
 
-		
+
 
 		int line = box.getLine();
 		int column = box.getColumn();
@@ -115,7 +115,7 @@ implements GraphInterface, MazeViewSource
 		else {return -1;}
 		}
 	}	
-	
+
 	public final void initFromTextFile(String fileName)
 	{
 		FileReader fr = null;
@@ -179,31 +179,31 @@ implements GraphInterface, MazeViewSource
 	{
 		PrintWriter pw = null ;
 
-			try {
-				pw = new PrintWriter(fileName);
-				
-				for(int lineNo=0; lineNo < HEIGHT ; lineNo++){
-					MBox[] line = maze[lineNo];
-					for(int colNo=0;colNo< WIDTH;colNo++)
-						line[colNo].writeCharTo(pw);
-					pw.println();
-				}
-				
-			} catch (FileNotFoundException e){
-				System.err.println("Error class maze, saveToTextFile : file not found\""+fileName+"\"");
-			} catch (SecurityException e){
-				System.err.println("Error class maze, saveToTextFile: security exception\""+fileName+"\"");
-			} catch (Exception e){
-				System.err.println("Error:unknown error.");
-				e.printStackTrace(System.err);
-			} finally {
-				if(pw!=null)
-					try { pw.close() ; } catch (Exception e){
-						
-					}}
-				}
+		try {
+			pw = new PrintWriter(fileName);
 
-	
+			for(int lineNo=0; lineNo < HEIGHT ; lineNo++){
+				MBox[] line = maze[lineNo];
+				for(int colNo=0;colNo< WIDTH;colNo++)
+					line[colNo].writeCharTo(pw);
+				pw.println();
+			}
+
+		} catch (FileNotFoundException e){
+			System.err.println("Error class maze, saveToTextFile : file not found\""+fileName+"\"");
+		} catch (SecurityException e){
+			System.err.println("Error class maze, saveToTextFile: security exception\""+fileName+"\"");
+		} catch (Exception e){
+			System.err.println("Error:unknown error.");
+			e.printStackTrace(System.err);
+		} finally {
+			if(pw!=null)
+				try { pw.close() ; } catch (Exception e){
+
+				}}
+	}
+
+
 
 	@Override
 	public boolean drawMaze(Graphics arg0, MazeView arg1) {
@@ -236,78 +236,66 @@ implements GraphInterface, MazeViewSource
 		//On initialise puis avec le click ou shiftclick on pose nos cases
 		//(la gestion du click et du shift est d�j� dans la MazeView.class du coup)
 		if(arg0!=0 && arg0!=HEIGHT-1 && arg1!=0 && arg1!=WIDTH-1){
-				
-				MBox box = null;
-		if(arg2.equals("D")) {
-			box = new DBox(arg0,arg1);
-		}
-		if(arg2.equals("E")) {
-			box = new EBox(arg0,arg1);
-		}
-		if(arg2.equals("A")) {
-			box = new ABox(arg0,arg1);
-		}
 
-		if(arg2.equals("W")) {
-			box = new WBox(arg0,arg1);
-		}
-		if(arg2.equals("P")) {
-			box = new PBox(arg0,arg1);
-		}
-		maze[arg0][arg1]=box;
+			MBox box = null;
+			if(arg2.equals("D")) {
+				box = new DBox(arg0,arg1);
+			}
+			if(arg2.equals("E")) {
+				box = new EBox(arg0,arg1);
+			}
+			if(arg2.equals("A")) {
+				box = new ABox(arg0,arg1);
+			}
 
+			if(arg2.equals("W")) {
+				box = new WBox(arg0,arg1);
+			}
+			maze[arg0][arg1]=box;
+
+		}
 	}
-}
 
+	public MBox getDeparture()
+	{
 
-		public MBox getDeparture()
+		for(int line = 0; line<getHeight(); line++)
 		{
-			
-				for(int line = 0; line<getHeight(); line++)
-				{
-					MBox[] theLine = maze[line];
-					for (int column = 0; column<getWidth(); column++)
-					{
-						
-						MBox box = theLine[column];
-					String name = box.getSymbol();
+			MBox[] theLine = maze[line];
+			for (int column = 0; column<getWidth(); column++)
+			{
 
-					if (name.equals("D")) {
-							return maze[line][column];
-		
-				
-					}
-         }}
-				return null;
-				}	
-				public MBox getArrival()
-				{
-					
-						for(int line = 0; line<getHeight(); line++){
-							MBox[] theLine = maze[line];
-							for (int column = 0; column<getWidth(); column++){
-							MBox box = theLine[column];
-							
-							String name = box.getSymbol();
+				MBox box = theLine[column];
+				String name = box.getSymbol();
 
-							if (name.equals("A")) 
-									return box;
-				
-							}
-		         }
-						return null;
-}
-				 public ArrayList<MBox> casesjaunes() { //renvoie la liste des cases du chemin 	 
-				 	 ArrayList<MBox> liste = new ArrayList<MBox>();
-				 	 for (int i = 0;i<getHeight();i++) {
-				 	 	 for(int j = 0;j<getWidth();j++) {
-				 	 	 	 MBox box = maze[i][j];
-				 	 	 	 if (box.getSymbol().equals("*")) {liste.add(box);}
-				 	 	 }
-				 	 }
-				 	 return liste;
-				 }
+				if (name.equals("D")) {
+					return maze[line][column];
+
+
 				}
-		
-		
+			}
+		}
+		return null;
+	}	
+	public MBox getArrival()
+	{
+
+		for(int line = 0; line<getHeight(); line++)
+		{
+			MBox[] theLine = maze[line];
+			for (int column = 0; column<getWidth(); column++)
+			{
+				MBox box = theLine[column];
+
+				String name = box.getSymbol();
+
+				if (name.equals("A")) 
+					return maze[line][column];
+
+			}
+		}
+		return null;
+	}}
+
+
 
