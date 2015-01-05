@@ -22,30 +22,30 @@ implements GraphInterface, MazeViewSource
 
 {
 	/** On rend les parametres hauteur et largeur variables, pour en donner le choix a l'utilisateur */
-	public int WIDTH;
-	public int HEIGHT;
+	public int Width;
+	public int Height;
 	private MBox[][] maze ;
 
 	// Creation d'une MBox de taille donnee ou toutes les cases sont des E 
 
 
-	public Maze(int WIDTH, int HEIGHT)
+	public Maze(int Width, int Height)
 	{
-		this.WIDTH = WIDTH;
-		this.HEIGHT = HEIGHT;
-		this.maze = new MBox[HEIGHT][WIDTH];
-		for (int i=0;i<HEIGHT;i++){
-			for (int j=0;j<WIDTH;j++){
+		this.Width = Width;
+		this.Height = Height;
+		this.maze = new MBox[Height][Width];
+		for (int i=0;i<Height;i++){
+			for (int j=0;j<Width;j++){
 				maze[i][j]=new EBox(i,j);
 			}   
 		}
-		for (int j=0;j<HEIGHT;j++){
+		for (int j=0;j<Height;j++){
 			maze[j][0]=new WBox(j,0);
-			maze[j][WIDTH-1]=new WBox(j,WIDTH-1);
+			maze[j][Width-1]=new WBox(j,Width-1);
 		}
-		for (int j=0;j<WIDTH; j++){
+		for (int j=0;j<Width; j++){
 			maze[0][j]= new WBox(0,j);
-			maze[HEIGHT-1][j]=new WBox(HEIGHT-1,j);
+			maze[Height-1][j]=new WBox(Height-1,j);
 		}
 
 	}
@@ -60,9 +60,9 @@ implements GraphInterface, MazeViewSource
 	{
 		ArrayList<VertexInterface> allVertices = new ArrayList<VertexInterface>();
 
-		for(int line = 0; line<HEIGHT;line++){
+		for(int line = 0; line<Height;line++){
 			MBox[] theLine = maze[line];
-			for (int column = 0;column<WIDTH;column++)
+			for (int column = 0;column<Width;column++)
 				allVertices.add(theLine[column]);
 		}
 		return allVertices;
@@ -85,7 +85,7 @@ implements GraphInterface, MazeViewSource
 			if (neighbor.isAccessible())
 				successors.add(neighbor);
 		}
-		if (line < HEIGHT-1){
+		if (line < Height-1){
 			MBox neighbor = maze[line-1][column];
 			if(neighbor.isAccessible())
 				successors.add(neighbor);
@@ -95,7 +95,7 @@ implements GraphInterface, MazeViewSource
 			if (neighbor.isAccessible())
 				successors.add(neighbor);
 		}
-		if (column<WIDTH-1){
+		if (column<Width-1){
 			MBox neighbor = maze[line][column+1];
 			if (neighbor.isAccessible())
 				successors.add(neighbor);
@@ -125,18 +125,18 @@ implements GraphInterface, MazeViewSource
 			fr = new FileReader(fileName);
 			br = new BufferedReader(fr);
 
-			for (int lineNo=0; lineNo < HEIGHT ; lineNo++)
+			for (int lineNo=0; lineNo < Height ; lineNo++)
 			{
 				String line = br.readLine();
 
 				if(line == null)
 					throw new MazeReadingException(fileName, lineNo, "not enough lines");
-				if ( line.length() < WIDTH)
+				if ( line.length() < Width)
 					throw new MazeReadingException(fileName, lineNo,"line too short");
-				if(line.length()> WIDTH)
+				if(line.length()> Width)
 					throw new MazeReadingException(fileName ,lineNo,"line too long");
 
-				for (int colNo=0;colNo < WIDTH;colNo++)
+				for (int colNo=0;colNo < Width;colNo++)
 				{
 					switch (line.charAt(colNo))
 					{
@@ -148,6 +148,8 @@ implements GraphInterface, MazeViewSource
 						maze[lineNo][colNo] = new WBox(lineNo,colNo); break;
 					case 'E' : 
 						maze[lineNo][colNo] = new EBox(lineNo,colNo); break;
+					case 'P' : 
+						maze[lineNo][colNo] = new PBox(lineNo,colNo); break;
 					default :
 						throw new MazeReadingException(fileName,lineNo,"unknown char'" + maze[lineNo][colNo] + "'");
 					}
@@ -182,9 +184,9 @@ implements GraphInterface, MazeViewSource
 		try {
 			pw = new PrintWriter(fileName);
 
-			for(int lineNo=0; lineNo < HEIGHT ; lineNo++){
+			for(int lineNo=0; lineNo < Height ; lineNo++){
 				MBox[] line = maze[lineNo];
-				for(int colNo=0;colNo< WIDTH;colNo++)
+				for(int colNo=0;colNo< Width;colNo++)
 					line[colNo].writeCharTo(pw);
 				pw.println();
 			}
@@ -211,16 +213,16 @@ implements GraphInterface, MazeViewSource
 	}
 	@Override
 	public int getHeight() {
-		return HEIGHT;
+		return Height;
 	}
 	@Override
 	public String getSymbolForBox(int line, int column) {
 		MBox box = maze[line][column];
-		return box.getSymbol();
+		return box.getSymbol();  
 	}
 	@Override
 	public int getWidth() {
-		return WIDTH;
+		return Width;
 	}
 	@Override
 	public boolean handleClick(MouseEvent arg0, MazeView arg1) {
@@ -235,7 +237,7 @@ implements GraphInterface, MazeViewSource
 		// La m�thode nous permet de d�finir murs, arriv�e et d�part. 
 		//On initialise puis avec le click ou shiftclick on pose nos cases
 		//(la gestion du click et du shift est d�j� dans la MazeView.class du coup)
-		if(arg0!=0 && arg0!=HEIGHT-1 && arg1!=0 && arg1!=WIDTH-1){
+		if(arg0!=0 && arg0!=Height-1 && arg1!=0 && arg1!=Width-1){
 
 			MBox box = null;
 			if(arg2.equals("D")) {
@@ -250,6 +252,9 @@ implements GraphInterface, MazeViewSource
 
 			if(arg2.equals("W")) {
 				box = new WBox(arg0,arg1);
+			}
+			if(arg2.equals("P")) {
+				box = new PBox(arg0,arg1);
 			}
 			maze[arg0][arg1]=box;
 
@@ -295,7 +300,17 @@ implements GraphInterface, MazeViewSource
 			}
 		}
 		return null;
-	}}
+	}
+	public ArrayList<MBox> casesjaunes() { //renvoie la liste des cases du chemin 	 
+	 	 ArrayList<MBox> liste = new ArrayList<MBox>();
+	 	 for (int i = 0;i<getHeight();i++) {
+	 	 	 for(int j = 0;j<getWidth();j++) {
+	 	 	 	 MBox box = maze[i][j];
+	 	 	 	 if (box.getSymbol().equals("P")) {liste.add(box);}
+	 	 	 }
+	 	 }
+	 	 return liste;
+	 }}
 
 
 

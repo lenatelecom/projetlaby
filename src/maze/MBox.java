@@ -38,7 +38,7 @@ public abstract class MBox
 	{
 		return true;
 	}
-	/* c'est quoi ca? */
+	
 	public String getSymbol()
 	{
 		return "E";

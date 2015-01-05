@@ -3,32 +3,36 @@ package dijkstra;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import maze.MBox;
+
 public class Previous 
 	implements PreviousInterface
 {
-	private final Hashtable<VertexInterface,VertexInterface> table;
+	private Hashtable<VertexInterface,VertexInterface> table;
 	
 	public Previous()
 	{
 		table = new Hashtable<VertexInterface,VertexInterface>();
 	}
-	
+	@Override
 	public void setValue(VertexInterface vertex, VertexInterface value)
 	{
 		table.put(vertex, value);
 	}
-	public VertexInterface getValue(VertexInterface vertex)
+	@Override
+	public VertexInterface getValue(MBox vertex)
 	{
 		return table.get(vertex);
 		
 	}
-	
-	public ArrayList<VertexInterface> getShortestPathTo(VertexInterface vertex)
+	@Override
+	public ArrayList<MBox> getShortestPathTo(MBox vertex)
 	{
-		ArrayList<VertexInterface> result = new ArrayList<VertexInterface>();
-		while (vertex!= null) {
-			result.add(vertex);
-			vertex=getValue(vertex);
+		ArrayList<MBox> result = new ArrayList<MBox>();
+		MBox box = (MBox) this.getValue(vertex);
+		while (box.getSymbol()!="D" && box.getSymbol()!="W") {
+			result.add(box);
+			box=(MBox) this.getValue(box);
 			
 		}
 		return result;

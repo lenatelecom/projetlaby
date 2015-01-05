@@ -1,8 +1,10 @@
 package dijkstra;
 import java.util.ArrayList;
+
+import maze.MBox;
 public interface PreviousInterface {
 
 	public void setValue(VertexInterface vertex, VertexInterface value);
-	public VertexInterface getValue(VertexInterface vertex);
-	public ArrayList<VertexInterface> getShortestPathTo(VertexInterface vertex);
+	public VertexInterface getValue(MBox vertex);
+	public ArrayList<MBox> getShortestPathTo (MBox vertex);
 }
