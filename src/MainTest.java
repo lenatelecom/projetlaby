@@ -22,7 +22,7 @@ public class MainTest {
 	 	 	   h = scan.nextInt(); 
 	 	 	   w = scan.nextInt();
 	 
-	 	MazeController mc = new MazeController(h,w);
+	 	MazeController mc = new MazeController(h+2,w+2);
 	 	 MazeWindow mazeWindow = new MazeWindow("My awesome laby", mc);
 	 	 }
 	 	 catch (Exception e) {
