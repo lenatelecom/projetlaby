@@ -1,4 +1,6 @@
 package maze;
+import java.util.ArrayList;
+
 import dijkstra.*;
 import fr.enst.inf103.ui.MazeViewSource;
 import fr.enst.inf103.ui.MazeViewController;
@@ -18,6 +20,24 @@ public class MazeController implements  MazeViewController {
 	il y a deja un chemin donc faut vider
 	ces cases.  */
 	public void calculateShortestPath() {
+		Maze maze1 = (Maze) maze;
+		ArrayList<MBox> caseschemin = maze1.casesjaunes();
+		
+		if(caseschemin.size()==0){
+			Previous previous = (Previous) Dijkstra.dijkstra(maze1,maze1.getDeparture());
+			ArrayList<MBox> chemin = previous.getShortestPathTo(maze1.getArrival());
+			for(int i= chemin.size()-1 ; i>= 0 ; i--) {
+				MBox box = (MBox) chemin.get(i);
+				maze.setSymbolForBox(box.getLine(),box.getColumn(),"*");
+			}
+		}
+		
+		else {
+			for (int i = 0;i<caseschemin.size();i++){
+				MBox box = (MBox) caseschemin.get(i);
+				maze.setSymbolForBox(box.getLine(),box.getColumn(),"E");
+			}
+		}
 		
 	}
 	
@@ -42,6 +62,7 @@ public class MazeController implements  MazeViewController {
 		// ouvrir un maze a partir du fichier texte
 		Maze mazee = (Maze) maze;
 		 mazee.initFromTextFile(fileName);
+		 maze=mazee;
 		 return mazee;
 		 
 		

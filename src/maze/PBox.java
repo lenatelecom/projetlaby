@@ -12,10 +12,15 @@ public class PBox extends MBox{ //Box of the Path
 		return false;
 	}
  public PBox(int line, int column){
- 	 super("P",line,column);
+ 	 super("*",line,column);
  }
  public final void writeCharTo(PrintWriter pw)
 	{
 		pw.print('P');
+	}
+ @Override
+	public final  String getSymbol()
+	{
+		return "*";
 	}
 }
