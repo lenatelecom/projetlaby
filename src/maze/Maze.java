@@ -306,7 +306,7 @@ implements GraphInterface, MazeViewSource
 	 	 for (int i = 0;i<getHeight();i++) {
 	 	 	 for(int j = 0;j<getWidth();j++) {
 	 	 	 	 MBox box = maze[i][j];
-	 	 	 	 if (box.getSymbol().equals("P")) {liste.add(box);}
+	 	 	 	 if (box.getSymbol().equals("*")) {liste.add(box);}
 	 	 	 }
 	 	 }
 	 	 return liste;

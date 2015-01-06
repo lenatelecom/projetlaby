@@ -13,4 +13,8 @@ public class EBox extends MBox {
 	{
 		pw.print('E');
 	}
+	public final String getSymbol()
+	{
+		return "E" ;
+	}
 }

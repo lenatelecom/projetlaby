@@ -13,7 +13,6 @@ public abstract class MBox
 	
 	public abstract void writeCharTo(PrintWriter pw) ;
 	/** Chaque box est reconnaissable par ses coordonnees et sa lettre */
-	/** Rajouter Maze maze ? */
 	public MBox(String type, int line, int column){
 		this.line = line;
 		this.column = column;
