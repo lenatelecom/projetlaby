@@ -1,5 +1,5 @@
 package dijkstra;
-
+import maze.Maze;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -28,13 +28,15 @@ public class Previous
 	@Override
 	public ArrayList<MBox> getShortestPathTo(MBox vertex)
 	{
+		
 		ArrayList<MBox> result = new ArrayList<MBox>();
+		
 		MBox box = (MBox) this.getValue(vertex);
 		while (box.getSymbol()!="D") {
 			result.add(box);
 			box=(MBox) this.getValue(box);
-			
 		}
+		
 		return result;
 	}
 }

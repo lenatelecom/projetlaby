@@ -302,15 +302,15 @@ implements GraphInterface, MazeViewSource
 		return null;
 	}
 	public ArrayList<MBox> casesjaunes() { //renvoie la liste des cases du chemin 	 
-	 	 ArrayList<MBox> liste = new ArrayList<MBox>();
-	 	 for (int i = 0;i<getHeight();i++) {
-	 	 	 for(int j = 0;j<getWidth();j++) {
-	 	 	 	 MBox box = maze[i][j];
-	 	 	 	 if (box.getSymbol().equals("*")) {liste.add(box);}
-	 	 	 }
-	 	 }
-	 	 return liste;
-	 }}
+		ArrayList<MBox> liste = new ArrayList<MBox>();
+		for (int i = 0;i<getHeight();i++) {
+			for(int j = 0;j<getWidth();j++) {
+				MBox box = maze[i][j];
+				if (box.getSymbol().equals("*")) {liste.add(box);}
+			}
+		}
+		return liste;
+	}}
 
 
 

@@ -20,7 +20,7 @@ public class MazeController implements  MazeViewController {
 	il y a deja un chemin donc faut vider
 	ces cases.  */
 	public void calculateShortestPath() {
-		Maze maze1 = (Maze) maze;
+		try{Maze maze1 = (Maze) maze;
 		ArrayList<MBox> caseschemin = maze1.casesjaunes();
 		
 		if(caseschemin.size()==0){
@@ -37,6 +37,10 @@ public class MazeController implements  MazeViewController {
 				MBox box = (MBox) caseschemin.get(i);
 				maze.setSymbolForBox(box.getLine(),box.getColumn(),"E");
 			}
+		}
+		}catch(NullPointerException e){
+			System.out.println("Il manque une case arrivé et/ou départ");
+			
 		}
 		
 	}

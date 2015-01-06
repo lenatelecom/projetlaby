@@ -1,4 +1,5 @@
 package dijkstra;
+import maze.Maze;
 import java.util.ArrayList;
 
 import maze.MBox;
