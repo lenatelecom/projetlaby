@@ -253,7 +253,7 @@ implements GraphInterface, MazeViewSource
 			if(arg2.equals("W")) {
 				box = new WBox(arg0,arg1);
 			}
-			if(arg2.equals("P")) {
+			if(arg2.equals("*")) {
 				box = new PBox(arg0,arg1);
 			}
 			maze[arg0][arg1]=box;

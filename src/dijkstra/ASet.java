@@ -4,7 +4,7 @@ import java.util.HashSet;
 public class ASet 
 	implements ASetInterface 
 {
-	private final HashSet<VertexInterface> aSet;
+	private HashSet<VertexInterface> aSet;
 	
 	public ASet()
 	{
