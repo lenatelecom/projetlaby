@@ -86,12 +86,12 @@ implements GraphInterface, MazeViewSource
 				successors.add(neighbor);
 		}
 		if (line < Height-1){
-			MBox neighbor = maze[line-1][column];
+			MBox neighbor = maze[line+1][column];
 			if(neighbor.isAccessible())
 				successors.add(neighbor);
 		}
 		if (column>0){
-			MBox neighbor = maze[line+1][column];
+			MBox neighbor = maze[line][column-1];
 			if (neighbor.isAccessible())
 				successors.add(neighbor);
 		}

@@ -32,7 +32,7 @@ public class Previous
 		ArrayList<MBox> result = new ArrayList<MBox>();
 		
 		MBox box = (MBox) this.getValue(vertex);
-		while (box.getSymbol()!="D") {
+		while (box.getSymbol()!="D" && box.getSymbol()!="W" && box.getSymbol()!=null) {
 			result.add(box);
 			box=(MBox) this.getValue(box);
 		}
