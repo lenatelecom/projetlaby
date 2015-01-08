@@ -16,7 +16,7 @@ public class PBox extends MBox{ //Box of the Path
  }
  public final void writeCharTo(PrintWriter pw)
 	{
-		pw.print('P');
+		pw.print('*');
 	}
  @Override
 	public final  String getSymbol()

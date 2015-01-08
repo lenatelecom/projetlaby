@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import dijkstra.GraphInterface;
 import dijkstra.VertexInterface;
 import fr.enst.inf103.ui.MazeView;
-import fr.enst.inf103.ui.MazeViewController;
+
 import fr.enst.inf103.ui.MazeViewSource;
-import fr.enst.inf103.ui.MazeWindow;
+
 
 
 public class Maze 
@@ -148,7 +148,7 @@ implements GraphInterface, MazeViewSource
 						maze[lineNo][colNo] = new WBox(lineNo,colNo); break;
 					case 'E' : 
 						maze[lineNo][colNo] = new EBox(lineNo,colNo); break;
-					case 'P' : 
+					case '*' : 
 						maze[lineNo][colNo] = new PBox(lineNo,colNo); break;
 					default :
 						throw new MazeReadingException(fileName,lineNo,"unknown char'" + maze[lineNo][colNo] + "'");

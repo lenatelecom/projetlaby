@@ -1,5 +1,5 @@
 package dijkstra;
-import maze.Maze;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 
