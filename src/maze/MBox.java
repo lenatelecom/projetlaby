@@ -10,7 +10,7 @@ public abstract class MBox
 	private int line;
 	private int column;
 	public abstract void writeCharTo(PrintWriter pw) ;
-	/** Chaque box est reconnaissable par ses coordonnees et sa lettre */
+	// Classe abstraite des cases du labyrinthe 
 	public MBox(String type, int line, int column){
 		this.line = line;
 		this.column = column;

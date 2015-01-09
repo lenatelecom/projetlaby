@@ -6,35 +6,34 @@ import maze.MazeController;
 
 public class MainTest {
 
-	 private static int h = 10;
-	 private static int w = 10;
-	  
+	private static int h = 10;  //taille du labyrinthe par defaut
+	private static int w = 10;
+
 	public static void main(String[] args) {
-	
-	Scanner scan = null;
-	 	
-	 
-	 	 try {
-	 	 	  scan = new Scanner(System.in);
-	 	 	 System.out.println("Hauteur du labyrinthe ?");
-	 	 	 h = scan.nextInt(); 
-	 	 	 System.out.println("Largeur du labyrinthe ?");
-	 	 	  
-	 	 	   w = scan.nextInt();
-	 
-	 	 }
-	 	 catch (Exception e) {
-	 	 	 System.out.println("Mauvaise saisie. Le labyrinthe aura la taille par defaut.");
-	 	 }
 
-	 	 finally {
-	 	 	 MazeController mc = new MazeController(h+2,w+2);
-	 	 	 new MazeWindow("My awesome laby", mc);
-	 	 }
-	    
-	 
+		Scanner scan = null;
 
-	     }
-	
-	   
+
+		try {
+			scan = new Scanner(System.in);
+			System.out.println("Hauteur du labyrinthe ?");
+			h = scan.nextInt(); 
+			System.out.println("Largeur du labyrinthe ?");
+			w = scan.nextInt();
+			// entree manuelle de la taille
+		}
+		catch (Exception e) {
+			System.out.println("Mauvaise saisie. Le labyrinthe aura la taille par defaut.");
+		}
+
+		finally {
+			MazeController mc = new MazeController(h+2,w+2);
+			new MazeWindow("My awesome laby", mc);
+		}
+
+
+
+	}
+
+
 }

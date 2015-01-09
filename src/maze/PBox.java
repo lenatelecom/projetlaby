@@ -1,24 +1,24 @@
- package maze;
+package maze;
 
 import java.io.PrintWriter;
+// classe des cases du chemin
+public class PBox extends MBox{ 
 
-public class PBox extends MBox{ //Box of the Path
 
 
-
- @Override
- public boolean isAccessible()
+	@Override
+	public boolean isAccessible()
 	{
 		return false;
 	}
- public PBox(int line, int column){
- 	 super("*",line,column);
- }
- public final void writeCharTo(PrintWriter pw)
+	public PBox(int line, int column){
+		super("*",line,column);
+	}
+	public final void writeCharTo(PrintWriter pw)
 	{
 		pw.print('*');
 	}
- @Override
+	@Override
 	public final  String getSymbol()
 	{
 		return "*";

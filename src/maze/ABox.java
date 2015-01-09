@@ -1,6 +1,6 @@
 package maze;
 import java.io.PrintWriter;
-
+//classe de la case d'arrivee
 public class ABox extends MBox {
 	 
 	public ABox(int line, int column)

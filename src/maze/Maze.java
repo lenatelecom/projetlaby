@@ -26,10 +26,11 @@ implements GraphInterface, MazeViewSource
 	public int Height;
 	private MBox[][] maze ;
 
-	// Creation d'une MBox de taille donnee ou toutes les cases sont des E 
+	/** Creation d'une MBox de taille donnee ou toutes les cases sont des E 
+	sauf les bords qui sont des W inchangeables */
 
 
-	public Maze(int Width, int Height)
+	public Maze(int Width, int Height) 
 	{
 		this.Width = Width;
 		this.Height = Height;
@@ -52,10 +53,7 @@ implements GraphInterface, MazeViewSource
 
 
 
-	public final MBox getBox(int line, int column)
-	{
-		return maze[line][column];
-	}
+	// on stocke toutes les cases dans une ArrayList
 	public final ArrayList<VertexInterface> getAllVertices()
 	{
 		ArrayList<VertexInterface> allVertices = new ArrayList<VertexInterface>();
@@ -67,7 +65,7 @@ implements GraphInterface, MazeViewSource
 		}
 		return allVertices;
 	}
-
+	// on stocke tous les voisins accessibles de vertex dans une ArrayList
 	public ArrayList<VertexInterface> getSuccessors(VertexInterface vertex)
 	{
 		ArrayList<VertexInterface> successors = new ArrayList<VertexInterface>();
@@ -103,7 +101,8 @@ implements GraphInterface, MazeViewSource
 		return successors;
 	}
 
-	/** Obtenir le poids entre deux sommets: 0 si c'est le m�me sommet, 1 s'ils sont li�s, -1 sinon */
+	//Obtenir le poids entre deux sommets: 0 si c'est le meme sommet, 
+	//1 s'ils sont lies, -1 sinon 
 
 	public final int getWeight(VertexInterface vertex1, VertexInterface vertex2)
 	{
@@ -115,7 +114,36 @@ implements GraphInterface, MazeViewSource
 		else {return -1;}
 		}
 	}	
+	//permet de sauvegarder un labyrinthe dans un fichier texte
+	public final void saveToTextFile(String fileName)
+	{
+		PrintWriter pw = null ;
 
+		try {
+			pw = new PrintWriter(fileName);
+
+			for(int lineNo=0; lineNo < Height ; lineNo++){
+				MBox[] line = maze[lineNo];
+				for(int colNo=0;colNo< Width;colNo++)
+					line[colNo].writeCharTo(pw);
+				pw.println();
+			}
+
+		} catch (FileNotFoundException e){
+			System.err.println("Error class maze, saveToTextFile : file not found\""+fileName+"\"");
+		} catch (SecurityException e){
+			System.err.println("Error class maze, saveToTextFile: security exception\""+fileName+"\"");
+		} catch (Exception e){
+			System.err.println("Error:unknown error.");
+			e.printStackTrace(System.err);
+		} finally {
+			if(pw!=null)
+				try { pw.close() ; } catch (Exception e){
+
+				}}
+	}
+
+	//construit un labyrinthe a partir d'un fichier texte
 	public final void initFromTextFile(String fileName)
 	{
 		FileReader fr = null;
@@ -177,35 +205,6 @@ implements GraphInterface, MazeViewSource
 	}
 
 
-	public final void saveToTextFile(String fileName)
-	{
-		PrintWriter pw = null ;
-
-		try {
-			pw = new PrintWriter(fileName);
-
-			for(int lineNo=0; lineNo < Height ; lineNo++){
-				MBox[] line = maze[lineNo];
-				for(int colNo=0;colNo< Width;colNo++)
-					line[colNo].writeCharTo(pw);
-				pw.println();
-			}
-
-		} catch (FileNotFoundException e){
-			System.err.println("Error class maze, saveToTextFile : file not found\""+fileName+"\"");
-		} catch (SecurityException e){
-			System.err.println("Error class maze, saveToTextFile: security exception\""+fileName+"\"");
-		} catch (Exception e){
-			System.err.println("Error:unknown error.");
-			e.printStackTrace(System.err);
-		} finally {
-			if(pw!=null)
-				try { pw.close() ; } catch (Exception e){
-
-				}}
-	}
-
-
 
 	@Override
 	public boolean drawMaze(Graphics arg0, MazeView arg1) {
@@ -216,14 +215,10 @@ implements GraphInterface, MazeViewSource
 		return Height;
 	}
 	@Override
-	public String getSymbolForBox(int line, int column) {
-		MBox box = maze[line][column];
-		return box.getSymbol();  
-	}
-	@Override
 	public int getWidth() {
 		return Width;
 	}
+
 	@Override
 	public boolean handleClick(MouseEvent arg0, MazeView arg1) {
 		return false;
@@ -233,10 +228,16 @@ implements GraphInterface, MazeViewSource
 		return false;
 	}
 	@Override
+	public String getSymbolForBox(int line, int column) {
+		MBox box = maze[line][column];
+		return box.getSymbol();  
+	}
+
+	@Override
 	public void setSymbolForBox(int arg0, int arg1, String arg2) {
-		// La m�thode nous permet de d�finir murs, arriv�e et d�part. 
+		// La methode nous permet de definir murs, arrivee et depart. 
 		//On initialise puis avec le click ou shiftclick on pose nos cases
-		//(la gestion du click et du shift est d�j� dans la MazeView.class du coup)
+
 		if(arg0!=0 && arg0!=Height-1 && arg1!=0 && arg1!=Width-1 && arg2!=null){
 
 			MBox box = null;
@@ -301,7 +302,8 @@ implements GraphInterface, MazeViewSource
 		}
 		return null;
 	}
-	public ArrayList<MBox> casesjaunes() { //renvoie la liste des cases du chemin 	 
+	//renvoie la liste des cases du chemin apres resolution
+	public ArrayList<MBox> casesjaunes() { 
 		ArrayList<MBox> liste = new ArrayList<MBox>();
 		for (int i = 0;i<getHeight();i++) {
 			for(int j = 0;j<getWidth();j++) {
