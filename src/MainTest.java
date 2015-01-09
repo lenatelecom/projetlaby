@@ -17,9 +17,9 @@ public class MainTest {
 	 	 try {
 	 	 	  scan = new Scanner(System.in);
 	 	 	 System.out.println("Hauteur du labyrinthe ?");
-	 	 	
+	 	 	 h = scan.nextInt(); 
 	 	 	 System.out.println("Largeur du labyrinthe ?");
-	 	 	   h = scan.nextInt(); 
+	 	 	  
 	 	 	   w = scan.nextInt();
 	 
 	 	 }

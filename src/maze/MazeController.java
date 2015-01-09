@@ -27,19 +27,19 @@ public class MazeController implements  MazeViewController {
 			Previous previous = (Previous) Dijkstra.dijkstra(maze1,maze1.getDeparture());
 			ArrayList<MBox> chemin = previous.getShortestPathTo(maze1.getArrival());
 			for(int i= chemin.size()-1 ; i>= 0 ; i--) {
-				MBox box = (MBox) chemin.get(i);
+				MBox box = chemin.get(i);
 				maze.setSymbolForBox(box.getLine(),box.getColumn(),"*");
 			}
 		}
 		
 		else {
 			for (int i = 0;i<caseschemin.size();i++){
-				MBox box = (MBox) caseschemin.get(i);
+				MBox box = caseschemin.get(i);
 				maze.setSymbolForBox(box.getLine(),box.getColumn(),"E");
 			}
 		}
 		}catch(NullPointerException e){
-			System.out.println("Il manque une case arrivé et/ou départ");
+			System.out.println("Case arrivee/depart absente/inaccessible");
 			
 		}
 		
