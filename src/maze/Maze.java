@@ -237,7 +237,7 @@ implements GraphInterface, MazeViewSource
 		// La m�thode nous permet de d�finir murs, arriv�e et d�part. 
 		//On initialise puis avec le click ou shiftclick on pose nos cases
 		//(la gestion du click et du shift est d�j� dans la MazeView.class du coup)
-		if(arg0!=0 && arg0!=Height-1 && arg1!=0 && arg1!=Width-1){
+		if(arg0!=0 && arg0!=Height-1 && arg1!=0 && arg1!=Width-1 && arg2!=null){
 
 			MBox box = null;
 			if(arg2.equals("D")) {

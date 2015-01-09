@@ -9,14 +9,11 @@ public abstract class MBox
 
 	private int line;
 	private int column;
-	private String type;
-	
 	public abstract void writeCharTo(PrintWriter pw) ;
 	/** Chaque box est reconnaissable par ses coordonnees et sa lettre */
 	public MBox(String type, int line, int column){
 		this.line = line;
 		this.column = column;
-		this.type = type;
 									  			}
 	public final String getLabel()
 	{
