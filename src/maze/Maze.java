@@ -144,6 +144,9 @@ implements GraphInterface, MazeViewSource
 	}
 
 	//construit un labyrinthe a partir d'un fichier texte
+	//La construction n'est pas possible si le labyrinthe déjà ouvert n'est pas
+	//de la meme taille que celui que l'on veut ouvrir avec cette méthode
+	//Pour améliorer, le programme il faudrait enlever cette contrainte
 	public final void initFromTextFile(String fileName)
 	{
 		FileReader fr = null;
@@ -186,7 +189,7 @@ implements GraphInterface, MazeViewSource
 			}
 
 		} catch (MazeReadingException e){
-			System.err.println(e.getMessage());
+			System.out.println("Votre labyrinthe actuel n'est pas de la taille de celui que vous voulez ouvrir.");;
 		} catch (FileNotFoundException e ){
 			System.err.println("Error class Maze, initFromTextFile : file not found\""+fileName+"\"");
 		} catch (IOException e) {
