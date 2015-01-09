@@ -29,7 +29,7 @@ public class MainTest {
 
 	 	 finally {
 	 	 	 MazeController mc = new MazeController(h+2,w+2);
-	 	 	 MazeWindow mazeWindow = new MazeWindow("My awesome laby", mc);
+	 	 	 new MazeWindow("My awesome laby", mc);
 	 	 }
 	    
 	 
